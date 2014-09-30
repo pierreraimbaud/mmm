@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TP1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings Coucou</string>
+    <string name="Page_d_accueil">Page d\'accueil</string>
+    <string name="Nom">Nom</string>
+    <string name="Prenom">Prénom</string>
+    <string name="Date">Date de naissance</string>
+    <string name="Ville">Ville de naissance</string>
+    <string name="action_search">Barre de menu!</string>
+     
+        <string name="raz">Remise à zéro</string>
+    
+    
+    
+    
+
+</resources>
