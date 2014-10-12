@@ -1,38 +1,74 @@
 package com.example.tp1;
 
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+
+	final static int idPhone = 99;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		Button custom = (Button) findViewById(R.id.button1);
-		custom.setBackgroundColor(Color.RED);
-		custom.setOnClickListener(new OnClickListener() {
+
+		Button okay = (Button) findViewById(R.id.okay);
+		okay.setBackgroundColor(Color.CYAN);
+		okay.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
-				String reponse="";
-				TextView t = (TextView)findViewById(R.id.editText1);
-				reponse += t.getText()+"\n";
-				t = (TextView)findViewById(R.id.editText3);
-				reponse += t.getText()+"\n";
-				t = (TextView)findViewById(R.id.editText2);
-				reponse += t.getText()+"\n";
-				t = (TextView)findViewById(R.id.editText4);
-				reponse += t.getText();
-				Toast.makeText(getApplicationContext(), reponse, Toast.LENGTH_LONG).show();
+				String nom="";
+				TextView t1 = (TextView)findViewById(R.id.nom);
+				nom += t1.getText()+"\n";
+				
+				String prenom="";
+				TextView t2 = (TextView)findViewById(R.id.prenom);
+				prenom += t2.getText()+"\n";
+				
+				String date="";
+				TextView t3 = (TextView)findViewById(R.id.date);
+				date += t3.getText()+"\n";
+				
+				String ville="";
+				TextView t4 = (TextView)findViewById(R.id.ville);
+				ville += t4.getText();
+				
+				Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
+				/*intent.putExtra("nom", nom);
+				intent.putExtra("prenom", prenom);
+				intent.putExtra("date", date);
+				intent.putExtra("ville", ville);*/
+				
+				Repertoire r = new Repertoire (nom, prenom, date, ville);
+				intent.putExtra("key", r);
+				startActivity(intent);
+				finish();
+				//Toast.makeText(getApplicationContext(), reponse, Toast.LENGTH_LONG).show();
+			}
+		});
+
+		Button wikipedia = (Button) findViewById(R.id.wikipedia);
+		wikipedia.setBackgroundColor(Color.CYAN);
+		wikipedia.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				String ville ="";
+				TextView t = (TextView)findViewById(R.id.ville);
+				ville += t.getText()+"\n";
+				String url = "http://fr.wikipedia.org/wiki/"+ville;
+				Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+				startActivity(intent);
 			}
 		});
 	}
@@ -44,15 +80,69 @@ public class MainActivity extends ActionBarActivity {
 		return true;
 	}
 
+	public boolean remise_zero() {
+		TextView t = (TextView)findViewById(R.id.nom);
+		t.setText("");
+		t = (TextView)findViewById(R.id.prenom);
+		t.setText("");
+		t = (TextView)findViewById(R.id.date);
+		t.setText("");
+		t = (TextView)findViewById(R.id.ville);
+		t.setText("");
+		t = (TextView) findViewById(idPhone);
+		if (t != null){
+			t.setText("");
+		}
+		return true;
+	}
+
+	public boolean ajouter_numero() {
+		RelativeLayout l = (RelativeLayout) findViewById(R.id.activity_main);
+
+		TextView num_phone = new TextView(this.getApplicationContext());
+		num_phone.setText("Numéro de téléphone : ");
+		num_phone.setTextColor(Color.BLACK);
+		num_phone.setId(98);
+
+		EditText phone = new EditText(this.getApplicationContext());
+		phone.setInputType(InputType.TYPE_CLASS_PHONE);
+		phone.setCursorVisible(true);
+		phone.setDrawingCacheBackgroundColor(Color.BLACK);
+		phone.setTextColor(Color.BLACK);
+		phone.setId(idPhone);
+
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, 
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+		params.addRule(RelativeLayout.BELOW, R.id.ville);	    	   
+		l.addView(num_phone, params);
+
+		RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, 
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+		params2.addRule(RelativeLayout.BELOW, 98);	    	   
+		l.addView(phone, params2);
+
+
+		l.invalidate();
+
+		return true;
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		if (R.id.buttonraz == id){
+			remise_zero();
 		}
-		return super.onOptionsItemSelected(item);
+		if (R.id.ajout_num == id){
+			ajouter_numero();
+		}
+		return true;
+
+		//default : return super.onOptionsItemSelected(item);
 	}
 }
