@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
 
+	final static int idPhoneText = 98;
 	final static int idPhone = 99;
 
 	@Override
@@ -26,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 
 		Button okay = (Button) findViewById(R.id.okay);
-		okay.setBackgroundColor(Color.CYAN);
+		okay.setBackgroundColor(Color.argb(255, 136, 66, 29));
 		okay.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				String nom="";
@@ -60,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
 		});
 
 		Button wikipedia = (Button) findViewById(R.id.wikipedia);
-		wikipedia.setBackgroundColor(Color.CYAN);
+		wikipedia.setBackgroundColor(Color.argb(255, 136, 66, 29));
 		wikipedia.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				String ville ="";
@@ -102,7 +103,7 @@ public class MainActivity extends ActionBarActivity {
 		TextView num_phone = new TextView(this.getApplicationContext());
 		num_phone.setText("Numéro de téléphone : ");
 		num_phone.setTextColor(Color.BLACK);
-		num_phone.setId(98);
+		num_phone.setId(idPhoneText);
 
 		EditText phone = new EditText(this.getApplicationContext());
 		phone.setInputType(InputType.TYPE_CLASS_PHONE);
@@ -120,7 +121,7 @@ public class MainActivity extends ActionBarActivity {
 		RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, 
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-		params2.addRule(RelativeLayout.BELOW, 98);	    	   
+		params2.addRule(RelativeLayout.BELOW, idPhoneText);	    	   
 		l.addView(phone, params2);
 
 
